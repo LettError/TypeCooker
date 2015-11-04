@@ -1,0 +1,117 @@
+	body{
+		background-color:rgba(197, 206, 225, 0.7);
+		font-size: 100%;
+		margin: 0;
+	}
+	#twitter{
+		background-color: #4099ff;
+		width: 100%;
+		color: white;
+		margin:0;
+		padding-left: 0.1em;
+		padding-right: 0.1em;
+	}
+	#tc{
+		color: white;
+		font-family: "LTRCondensedNo3-Grade2Italic";
+		padding-left: 0.1em;
+		background-color: #ff001b;
+		font-style: normal;
+		font-weight: normal;
+	}
+	.explainparameter{
+		display: none;
+		background-color: blue;
+		color: white;
+		font-family: "LTRCondensedNo3-Grade2Italic";
+		line-height: 100%;
+		font-size: 12vw;
+	}
+	#recipe{
+		width: 100vw;
+		margin:0;
+	}
+	.selected{
+		color: white;
+		font-family: "LTRCondensedNo3-Grade2Italic";
+		padding-left: 0.1em;
+		background-color: #ff001b;
+		font-style: normal;
+		font-weight: normal;
+	}
+	a{
+		text-decoration: none;
+		color: white;
+		/*font-family: "LTRCondensedNo3-Grade1Italic";*/
+		padding-left: 0.05em;
+		padding-right: 0.05em;
+	}
+	a:hover{
+		font-family: "LTRCondensedNo3-Grade2Italic";
+		color: white;
+	}
+	.container{
+		background-color: rgba(255, 255, 255, 0.52);
+	}
+	.entry, .choice, .explain{
+		display: inline-block;
+		font-family: "LTRCondensedNo3-Grade1Italic";
+		font-style: normal;
+		font-weight: normal;
+		text-align: left;
+		text-transform: capitalize;
+		line-height: 100%;
+		font-size: 12vw;
+		color: rgba(32, 31, 27, 0.95);
+		padding: 0;
+	}
+	.entry{
+		background-color: #ffc400;
+		color: white;
+	}
+	.entry:hover, .explaining{
+/*		background-color: #ffc400;
+		color: white;
+		*/
+		color: #ffc400;
+	}
+	div.explaining{
+		background-color: #ffc400;
+		color: red;
+	}
+	.choice{
+		display: inline-block;
+		/*margin-left: 0.125em;*/
+		margin-right: 0.125em;
+		padding-left: 0.125em;
+		padding-right: 0.125em;
+	}
+	.explain{
+		display: none;
+		background-color: black;
+		color: white;
+		text-transform: none;
+		font-family: "LTRCondensedNo3-Grade1Italic";
+		line-height: 100%;
+	}
+	#title, #explain{
+		font-family: "LTRCondensedNo3-Grade1Italic";
+		text-align: left;
+		line-height: 100%;
+		font-size: 12vw;
+		color: white;
+		padding-left: 0.1em;
+		background-color: #ff001b;
+	}
+	#title{
+		text-transform: uppercase;
+	}
+	em{
+		font-style: normal;
+		font-family: "LTRCondensedNo3-Grade1Italic";
+		color: rgba(0, 0, 0, 0.4);
+		text-transform: capitalize;
+		padding-left: 0.1em;
+		padding-right: 0.1em;
+		background-color: #ffc400;
+	}
