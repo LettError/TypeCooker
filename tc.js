@@ -195,7 +195,7 @@ var makeSelection = function(level, data){
 	    	var parameterNameAsClass = thisName.replace(/\s+/g, '');
 	    	var el = document.getElementById(parameterNameAsClass);
 	    	var nameCode = "explainParameter(\'"+parameterNameAsClass+"\');";
-	    	var thisNameLink = "<a href=\"#\" onclick=\""+nameCode+"\">"+thisName+"</a>";
+	    	var thisNameLink = "<a onclick=\""+nameCode+"\">"+thisName+"</a>";
 	    	el.innerHTML = thisNameLink+el.innerHTML;	    	
 	    	document.getElementById(parameterNameAsClass+"choice").innerHTML = selection.name;	    	
 	    	document.getElementById(parameterNameAsClass+"explain").innerHTML = d;	    	

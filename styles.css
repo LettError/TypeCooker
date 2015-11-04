@@ -40,6 +40,7 @@
 		font-weight: normal;
 	}
 	a{
+		cursor: pointer; /* force displaying pointer curser for a tags missing a href attribute */
 		text-decoration: none;
 		color: white;
 		/*font-family: "LTRCondensedNo3-Grade1Italic";*/
