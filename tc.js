@@ -35,6 +35,7 @@
 var parametersURL = "parameters.json";
 var selectionLevel = 1;
 var currentExplained = null;
+var currentClipboard = "";
 var data = {};
 
 // explain text
@@ -160,6 +161,10 @@ var showExplain = function(){
 var makeSelection = function(level, data){
 	var selectedItems = [];
 	var parameterNames = [];
+
+	// reset cliboard String
+	currentClipboard = "TypeCooker: ";
+
 	for(var key in data){
 		parameterNames.push(key);
 	}	
@@ -196,10 +201,64 @@ var makeSelection = function(level, data){
 	    	var el = document.getElementById(parameterNameAsClass);
 	    	var nameCode = "explainParameter(\'"+parameterNameAsClass+"\');";
 	    	var thisNameLink = "<a href=\"#\" onclick=\""+nameCode+"\">"+thisName+"</a>";
-	    	el.innerHTML = thisNameLink+el.innerHTML;	    	
+	    	el.innerHTML = thisNameLink+el.innerHTML;
 	    	document.getElementById(parameterNameAsClass+"choice").innerHTML = selection.name;	    	
 	    	document.getElementById(parameterNameAsClass+"explain").innerHTML = d;	    	
+
+	    	// append selection parameter and value to clipboard string
+	    	currentClipboard += thisName + ": " + selection.name + ", ";
         }
     }
 }
+
+
+// setup clipboard library
+var clipboard = new Clipboard('#copy', {
+	text: function (trigger) {
+		// return the last clipboard string, excluding last comma
+		// as per http://stackoverflow.com/a/14355832/999162
+		return currentClipboard.replace(/,(?=[^,]*$)/, '');
+	}
+});
+
+
+// clipboard event handling
+clipboard.on('success', function(e) {
+	showTooltip(e.trigger, 'Copied!');
+    e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+    showTooltip(e.trigger, fallbackMessage(e.action));
+});
+
+
+document.querySelectorAll('#copy').addEventListener('mouseleave', function(e) {
+    e.currentTarget.removeAttribute('aria-label');
+});
+
+function showTooltip(elem, msg) {
+    elem.setAttribute('class', 'tooltipped tooltipped-s');
+    elem.setAttribute('aria-label', msg);
+}
+
+// attempt to detect why clipboard copy failed and 
+// show instructions accordingly
+function fallbackMessage(action) {
+    var actionMsg = '';
+    var actionKey = (action === 'cut' ? 'X' : 'C');
+
+    if(/iPhone|iPad/i.test(navigator.userAgent)) {
+        actionMsg = 'No support :(';
+    }
+    else if (/Mac/i.test(navigator.userAgent)) {
+        actionMsg = 'Press ⌘-' + actionKey + ' to ' + action;
+    }
+    else {
+        actionMsg = 'Press Ctrl-' + actionKey + ' to ' + action;
+    }
+
+    return actionMsg;
+}
+
 // thank you for your attention. Now go draw something.
