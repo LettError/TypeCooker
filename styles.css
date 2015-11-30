@@ -1,6 +1,5 @@
 	body{
 		background-color:rgba(197, 206, 225, 0.7);
-		font-size: 100%;
 		margin: 0;
 	}
 	#twitter{
@@ -13,7 +12,7 @@
 	}
 	#tc{
 		color: white;
-		font-family: "LTRCondensedNo3-Grade2Italic";
+		font-family: "heavierSans";
 		padding-left: 0.1em;
 		background-color: #ff001b;
 		font-style: normal;
@@ -23,9 +22,7 @@
 		display: none;
 		background-color: blue;
 		color: white;
-		font-family: "LTRCondensedNo3-Grade2Italic";
-		line-height: 100%;
-		font-size: 12vw;
+		font-family: "heavierSans";
 	}
 	#recipe{
 		width: 100vw;
@@ -33,21 +30,21 @@
 	}
 	.selected{
 		color: white;
-		font-family: "LTRCondensedNo3-Grade2Italic";
+		font-family: "heavierSans";
 		padding-left: 0.1em;
 		background-color: #ff001b;
 		font-style: normal;
 		font-weight: normal;
 	}
 	a{
+		cursor: pointer; /* force displaying pointer curser for a tags missing a href attribute */
 		text-decoration: none;
 		color: white;
-		/*font-family: "LTRCondensedNo3-Grade1Italic";*/
 		padding-left: 0.05em;
 		padding-right: 0.05em;
 	}
 	a:hover{
-		font-family: "LTRCondensedNo3-Grade2Italic";
+		font-family: "heavierSans";
 		color: white;
 	}
 	.container{
@@ -55,13 +52,11 @@
 	}
 	.entry, .choice, .explain{
 		display: inline-block;
-		font-family: "LTRCondensedNo3-Grade1Italic";
+		font-family: "lighterSans";
 		font-style: normal;
 		font-weight: normal;
 		text-align: left;
 		text-transform: capitalize;
-		line-height: 100%;
-		font-size: 12vw;
 		color: rgba(32, 31, 27, 0.95);
 		padding: 0;
 	}
@@ -81,7 +76,6 @@
 	}
 	.choice{
 		display: inline-block;
-		/*margin-left: 0.125em;*/
 		margin-right: 0.125em;
 		padding-left: 0.125em;
 		padding-right: 0.125em;
@@ -91,14 +85,12 @@
 		background-color: black;
 		color: white;
 		text-transform: none;
-		font-family: "LTRCondensedNo3-Grade1Italic";
-		line-height: 100%;
+		font-family: "lighterSans";
+		
 	}
 	#title, #explain{
-		font-family: "LTRCondensedNo3-Grade1Italic";
+		font-family: "lighterSans";
 		text-align: left;
-		line-height: 100%;
-		font-size: 12vw;
 		color: white;
 		padding-left: 0.1em;
 		background-color: #ff001b;
@@ -108,7 +100,7 @@
 	}
 	em{
 		font-style: normal;
-		font-family: "LTRCondensedNo3-Grade1Italic";
+		font-family: "lighterSans";
 		color: rgba(0, 0, 0, 0.4);
 		text-transform: capitalize;
 		padding-left: 0.1em;

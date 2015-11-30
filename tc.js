@@ -70,6 +70,7 @@ request.onload = function() {
 	// to match the options provided
 	// else generate a new ranomd set of options
 	if (window.location.hash) {
+		console.log("rebuild");
 		var options = buildObjFromHash(window.location.hash);
 		// "update" share link in the footer to match the current options
 		var shareLink = window.location.href + window.location.hash;
@@ -80,6 +81,7 @@ request.onload = function() {
 		// a set link can still generate new sets
 		window.location.hash = "";
 	} else {
+		console.log("generate");
     	makeSelection(selectionLevel, parameterData);
     }
   } else {
@@ -204,7 +206,8 @@ var buildRecipe = function (parameterNames) {
 }
 
 // build the html for passed parameter
-var buildSelection = function(selection, thisName) {	
+var buildSelection = function(selection, thisName) {
+	console.log("selection", selection);
 	var d = "No description for "+thisName;
 	if(selection.description!=undefined){
     	d = selection.description;
@@ -212,7 +215,7 @@ var buildSelection = function(selection, thisName) {
 	var parameterNameAsClass = thisName.replace(/\s+/g, '');
 	var el = document.getElementById(parameterNameAsClass);
 	var nameCode = "explainParameter(\'"+parameterNameAsClass+"\');";
-	var thisNameLink = "<a href=\"#\" onclick=\""+nameCode+"\">"+thisName+"</a>";
+	var thisNameLink = "<a onclick=\""+nameCode+"\">"+thisName+"</a>";
 	el.innerHTML = thisNameLink+el.innerHTML;	    	
 	document.getElementById(parameterNameAsClass+"choice").innerHTML = selection.name;	    	
 	document.getElementById(parameterNameAsClass+"explain").innerHTML = d;

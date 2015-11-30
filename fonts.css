@@ -1,0 +1,23 @@
+
+/*	font-face declarations	*/
+
+/*@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:600,300);
+*/
+
+@font-face {
+  font-family: 'lighterSans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Source Sans Pro Light'), local('SourceSansPro-Light'), url(https://fonts.gstatic.com/s/sourcesanspro/v9/toadOcfmlt9b38dHJxOBGPS42wKzre0cxmO5m5GyTsY.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'heavierSans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Source Sans Pro Semibold'), local('SourceSansPro-Semibold'), url(https://fonts.gstatic.com/s/sourcesanspro/v9/toadOcfmlt9b38dHJxOBGBRq_IsDXucKYMk4-diqPEc.ttf) format('truetype');
+}
+
+body{
+		line-height: 120%;
+		font-size: 6vw;
+}
