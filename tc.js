@@ -36,6 +36,7 @@ var parametersURL = "parameters.json";
 var selectionLevel = 1;
 var currentExplained = null;
 var data = {};
+var current = {}; // holds the generated parameter - value pairs
 
 // explain text
 var explainText = "Hi! If you don&rsquo;t know what kind of letters to draw, TypeCooker can give you some ideas. Try to match as many parameters as you can.<br><a id=\"twitter\" target=\"_new\" href=\"https://twitter.com/typecooker\">@typecooker</a>";
@@ -59,11 +60,28 @@ request.onload = function() {
     	selectionLevel=2;
     }
 	el = document.getElementById("level"+selectionLevel);
-	if (el.classList)
+	if (el.classList) {
 		el.classList.add('selected');
-	else
+	} else {
   		el.className += ' ' + 'selected';
-    makeSelection(selectionLevel, parameterData);
+	}
+
+	// if there is a hash fragment present in the url, rebuild the interface state
+	// to match the options provided
+	// else generate a new ranomd set of options
+	if (window.location.hash) {
+		var options = buildObjFromHash(window.location.hash);
+		// "update" share link in the footer to match the current options
+		var shareLink = window.location.href + window.location.hash;
+    	document.getElementById("share-link").setAttribute("href", shareLink);
+		makeFromObject(options, parameterData);
+
+		// then remove the hash form the url, so that a user that came via
+		// a set link can still generate new sets
+		window.location.hash = "";
+	} else {
+    	makeSelection(selectionLevel, parameterData);
+    }
   } else {
     // We reached our target server, but it returned an error
 	  console.log("error loading", parametersURL);
@@ -104,6 +122,29 @@ function getParameterByName(name) {
     return results === null ? 2 : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+function buildObjFromHash(hash) {
+	// replace any possible starting # sign
+	hash = hash.replace(/^#/, ""); 
+
+	// iterate though all & seperated paramater - value pairs
+	var parts = hash.split("&"); 
+	var obj = {};
+	for (part in parts) {
+		var components = parts[part].split("=");
+		obj[decodeURIComponent(components[0])] = decodeURIComponent(components[1]);
+	}
+	return obj;
+}
+
+function buildHashFromObj(obj) {
+	var hash = "";
+	for (property in obj) {
+		hash += "&" + encodeURIComponent(property) + "=" + encodeURIComponent(obj[property])
+	}
+	hash = hash.substring(1); // remove that first &
+	return hash;
+}
+
 // build parameter unit
 var buildParameter = function(parameterName){
 	// build the structure for the parameter, but without any contents. 
@@ -116,7 +157,7 @@ var buildParameter = function(parameterName){
 	t += "<div class=\"choice\" id=\""+parameterChoiceAsClass+"\">"+"</div>";
 	t += "</div>";
 	t += "<div class=\"explain\" id=\""+parameterExplainAsClass+"\">"+"</div>";
-	console.log("t", t);
+	//console.log("t", t);
 	return t;
 }
 
@@ -154,9 +195,60 @@ var showExplain = function(){
 	}
 }
 
-//make a selection
-//var selectItem = var randomItem = items[Math.floor(Math.random()*items.length)]
 
+// build the "recipe" html for all parameterNames
+var buildRecipe = function (parameterNames) {
+	for(var i=0;i<parameterNames.length;i++){
+		document.getElementById("recipe").innerHTML += buildParameter(parameterNames[i]);	    	
+    }
+}
+
+// build the html for passed parameter
+var buildSelection = function(selection, thisName) {	
+	var d = "No description for "+thisName;
+	if(selection.description!=undefined){
+    	d = selection.description;
+	}
+	var parameterNameAsClass = thisName.replace(/\s+/g, '');
+	var el = document.getElementById(parameterNameAsClass);
+	var nameCode = "explainParameter(\'"+parameterNameAsClass+"\');";
+	var thisNameLink = "<a href=\"#\" onclick=\""+nameCode+"\">"+thisName+"</a>";
+	el.innerHTML = thisNameLink+el.innerHTML;	    	
+	document.getElementById(parameterNameAsClass+"choice").innerHTML = selection.name;	    	
+	document.getElementById(parameterNameAsClass+"explain").innerHTML = d;
+}
+
+// got passed a hash on load, build the selection from an object and the passed
+// in json data
+var makeFromObject = function (obj, data) {
+	var parameterNames = [];
+	for(var key in data){
+		parameterNames.push(key);
+	}
+ 	buildRecipe(parameterNames);
+
+ 	// remove the "keys" array form the json data to avoid having it
+ 	// included as a new parameter listed as selected
+ 	data.keys = undefined;
+
+ 	// since the obj only contains the "name" value of the actual data
+ 	// let's make an object that has all the data from the json
+ 	var objectFromJson = obj;
+ 	for (param in data) {
+ 		for (index in data[param]) {
+ 			if (data[param][index]["name"] == obj[param]) {
+ 				objectFromJson[param] = data[param][index];
+ 			}
+ 		}
+ 	}
+
+ 	// build the actual html for each parameter
+	for (parameter in objectFromJson) {
+		buildSelection(objectFromJson[parameter], parameter);
+	}
+}
+
+// json loaded and no url has provided, make a new randomized selection
 var makeSelection = function(level, data){
 	var selectedItems = [];
 	var parameterNames = [];
@@ -165,9 +257,7 @@ var makeSelection = function(level, data){
 	}	
 
     parameterNames = shuffle(parameterNames);
- 	for(var i=0;i<parameterNames.length;i++){
-		document.getElementById("recipe").innerHTML += buildParameter(parameterNames[i]);	    	
-    }
+ 	buildRecipe(parameterNames);
 
  	for(var i=0;i<parameterNames.length;i++){
  		var thisName = parameterNames[i];
@@ -187,19 +277,13 @@ var makeSelection = function(level, data){
         }
         if(optionsForThisName.length>0){
 	    	var selection = optionsForThisName[Math.floor(Math.random()*optionsForThisName.length)];
-	    	console.log("selection", selection);
-	    	var d = "No description for "+thisName;
-	    	if(selection.description!=undefined){
-		    	d = selection.description;
-	    	}
-	    	var parameterNameAsClass = thisName.replace(/\s+/g, '');
-	    	var el = document.getElementById(parameterNameAsClass);
-	    	var nameCode = "explainParameter(\'"+parameterNameAsClass+"\');";
-	    	var thisNameLink = "<a href=\"#\" onclick=\""+nameCode+"\">"+thisName+"</a>";
-	    	el.innerHTML = thisNameLink+el.innerHTML;	    	
-	    	document.getElementById(parameterNameAsClass+"choice").innerHTML = selection.name;	    	
-	    	document.getElementById(parameterNameAsClass+"explain").innerHTML = d;	    	
+	    	buildSelection(selection, thisName);
+	    	current[thisName] = selection.name;
         }
     }
+    // update the footer share link to match the current options
+    // remove and hash that might or might not have been in the location
+    var shareLink = window.location.href.replace(/#$/, "") + "#" + buildHashFromObj(current);
+    document.getElementById("share-link").setAttribute("href", shareLink);
 }
 // thank you for your attention. Now go draw something.
