@@ -107,3 +107,7 @@
 		padding-right: 0.1em;
 		background-color: #ffc400;
 	}
+	#footer{
+		font-family: "lighterSans";
+		color: white;
+	}
