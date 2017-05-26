@@ -808,5 +808,42 @@
          "weight":4,
          "description":"Can't be too specialised, it has to work well on a range of sizes."
       }
+   ],
+   "variable":[  
+      {  
+         "url":"parameters.html#variable",
+         "level":4,
+         "name":"make width axis variations",
+         "weight":2,
+         "description":"Draw wider and narrower variations."
+      },
+      {  
+         "url":"parameters.html#variable",
+         "level":4,
+         "name":"make weight axis variations",
+         "weight":2,
+         "description":"Draw lighter and heavier variations."
+      },
+      {  
+         "url":"parameters.html#variable",
+         "level":4,
+         "name":"make optical axis variations",
+         "weight":2,
+         "description":"Draw variations for normal and smaller sizes."
+      },
+      {  
+         "url":"parameters.html#variable",
+         "level":5,
+         "name":"make optical axis variations",
+         "weight":2,
+         "description":"Draw variations for normal and larger sizes."
+      },
+      {  
+         "url":"parameters.html#variable",
+         "level":5,
+         "name":"make optical axis variations",
+         "weight":2,
+         "description":"Draw variations for smaller and larger sizes."
+      }
    ]
 }
