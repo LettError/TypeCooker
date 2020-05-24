@@ -351,21 +351,21 @@
          "url":"parameters.html#stems",
          "level":3,
          "name":"slightly concave",
-         "weight":10,
+         "weight":4,
          "description":"The stems are slightly curved inward. Reversed entasis."
       },
       {  
          "url":"parameters.html#stems",
          "level":4,
          "name":"visibly concave",
-         "weight":10,
+         "weight":4,
          "description":"The stems are visibly curved inward. Reversed entasis."
       },
       {  
          "url":"parameters.html#stems",
          "level":4,
          "name":"flaring",
-         "weight":10,
+         "weight":4,
          "description":"The stems are very much curved inward. Might involve serifs."
       },
       {  
